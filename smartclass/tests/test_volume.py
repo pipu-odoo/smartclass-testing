@@ -30,4 +30,15 @@ class TestVolume(odoo.tests.HttpCase):
         })
         self.assertAlmostEqual(volume2.volume, 24.84, places=2)
         self.assertEqual(volume2.category, "medium")
+        
+    def test_tour_create_volumes(self):
+        # Be sure to be in light mode
+        self.start_tour('/odoo', 'tour_create_volumes', login="admin")
+        volumes = self.env["smartclass.volume"].search([])
+        self.assertEqual(len(volumes), 5, "There should be 5 volumes.")
+        self.assertEqual(volumes[0].volume, 40.93)
+        self.assertEqual(volumes[1].volume, 2)
+        self.assertEqual(volumes[2].volume, 6)
+        self.assertEqual(volumes[3].volume, 60)
+        self.assertEqual(volumes[4].volume, 504000)
 
